@@ -103,7 +103,7 @@ def main():
 				if (filename == "__init__.py"):
 					sendErrorPageAndClose(conn, "Not Found", 404)
 					continue
-					
+
 				if (filename[-3:] == ".py"):
 					try:
 						module = import_module(fpath[:-3].replace("/","."))
@@ -112,8 +112,9 @@ def main():
 						sendWriteHeaders(conn, time.strftime("%c"), "text/html", len(pydata))
 						conn.send(pydata)
 						continue
-					except ImportError:
-						print "Module %s did not contain onPageLoad. Displaying error." % fpath
+					except Exception as e:
+						print "Module %s failed to load properly." % fpath
+						print "Trace: %s" % e
 						sendErrorPageAndClose(conn, "Internal Error", 500)
 						continue
 				elif (filename[-4:] == ".pyc"):

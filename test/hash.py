@@ -15,7 +15,6 @@ def onPageLoad(paramstr):
 
 		params[k[0]] = k[1]
 
-
 	if (params['user'] == "" or params['pass'] == ""):
 		return "Invalid parameters: %s" % params
 
